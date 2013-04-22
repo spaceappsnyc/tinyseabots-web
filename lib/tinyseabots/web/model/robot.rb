@@ -1,12 +1,12 @@
-require 'tinysearobots/web/model'
+require 'tinyseabots/web/model'
 
 require 'SecureRandom'
 
-class Tinysearobots::Web::Model::Robot < Sequel::Model(:robot)
+class Tinyseabots::Web::Model::Robot < Sequel::Model(:robot)
   plugin :json_serializer 
   plugin :timestamps
   plugin :validation_helpers
-  one_to_one :user, :class => :'Tinysearobots::Web::Model::User'
+  one_to_one :user, :class => :'Tinyseabots::Web::Model::User'
 
   def validate
     super

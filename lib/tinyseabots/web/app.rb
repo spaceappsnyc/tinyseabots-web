@@ -1,17 +1,17 @@
-require 'tinysearobots/web'
+require 'tinyseabots/web'
 
 require 'less'
 require 'rack/flash'
 require 'sinatra/base'
 require 'sinatra/assetpack'
 
-class Tinysearobots::Web::App < Sinatra::Base
+class Tinyseabots::Web::App < Sinatra::Base
   register Sinatra::AssetPack
 
   # Configuration
   configure do
     # config
-    config = Tinysearobots::Web::Config
+    config = Tinyseabots::Web::Config
     set :config, config
 
     # view
@@ -65,7 +65,7 @@ class Tinysearobots::Web::App < Sinatra::Base
   end
 
   # models
-  User = Tinysearobots::Web::Model::User
+  User = Tinyseabots::Web::Model::User
 
   # helpers
   helpers do

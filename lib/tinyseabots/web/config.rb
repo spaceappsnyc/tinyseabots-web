@@ -1,7 +1,7 @@
-require 'tinysearobots/web'
+require 'tinyseabots/web'
 require 'settingslogic'
 
-class Tinysearobots::Web::Config < Settingslogic
+class Tinyseabots::Web::Config < Settingslogic
   source ENV['CONFIG_PATH']
   namespace ENV['RACK_ENV'] || 'development'
 end

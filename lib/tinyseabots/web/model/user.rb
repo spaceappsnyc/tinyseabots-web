@@ -1,10 +1,10 @@
-require 'tinysearobots/web/model'
+require 'tinyseabots/web/model'
 
-class Tinysearobots::Web::Model::User < Sequel::Model(:user)
+class Tinyseabots::Web::Model::User < Sequel::Model(:user)
   plugin :json_serializer 
   plugin :timestamps
   plugin :validation_helpers
-  one_to_many :robots, :class => :'Tinysearobots::Web::Model::Robot'
+  one_to_many :robots, :class => :'Tinyseabots::Web::Model::Robot'
 
   def validate
     super
