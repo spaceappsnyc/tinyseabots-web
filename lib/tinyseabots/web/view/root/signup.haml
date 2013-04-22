@@ -1,3 +1,5 @@
+- @title = "Signup"
+
 .row
   .col-span-4.col-offset-4
     %h1.text-center Signup
@@ -6,16 +8,16 @@
         .control-group
           %label.control-label(for="user[email]") Email
           .controls
-            %input(name="user[email]" autofocus placeholder="Email address")
+            %input(name="user[email]" autofocus placeholder="Email address"
+              value="#{@user.email}" type="text")
             - if @user.errors.has_key?(:email)
-              .alert.alert-error= "Email #{@user.errors[:email].first}"
-        %br
+              .alert.alert-danger= "Email #{@user.errors[:email].first}"
         .control-group
           %label.control-label(for="user[password]") Password
           .controls
-            %input(name="user[password]" placeholder="Password")
+            %input(name="user[password]" placeholder="Password" type="password")
             - if @user.errors.has_key?(:password)
-              .alert.alert-error= "Password #{@user.errors[:password].first}"
+              .alert.alert-danger= "Password #{@user.errors[:password].first}"
         .control-group
           %label.control-label(for="submit")
           .controls

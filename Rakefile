@@ -1,4 +1,4 @@
-require './lib/tinysearobots/web'
+require './lib/tinyseabots/web'
 require 'rake/testtask'
 
 task :default => :test
@@ -13,20 +13,20 @@ namespace :db do
     MIGRATION_DIRECTORY = 'migration'
     Sequel.extension :migration, :core_extensions
     task :up do
-      Sequel::Migrator.apply(Tinysearobots::Web::Model::DB, MIGRATION_DIRECTORY) 
+      Sequel::Migrator.apply(Tinyseabots::Web::Model::DB, MIGRATION_DIRECTORY) 
     end
 
     task :down do
-      schema_info= TinyseaRobots::Web::Model::DB[:schema_info].first
+      schema_info= Tinyseabots::Web::Model::DB[:schema_info].first
       version = (schema_info.nil?) ? nil : schema_info[:version]
 
-      Sequel::Migrator.apply(Tinysearobots::Web::Model::DB,
+      Sequel::Migrator.apply(Tinyseabots::Web::Model::DB,
         MIGRATION_DIRECTORY,
         version - 1) 
     end
 
     task :reset do
-      Sequel::Migrator.apply(Tinysearobots::Web::Model::DB, MIGRATION_DIRECTORY, 0)
+      Sequel::Migrator.apply(Tinyseabots::Web::Model::DB, MIGRATION_DIRECTORY, 0)
     end
   end
 

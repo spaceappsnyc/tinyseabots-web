@@ -1,3 +1,3 @@
-require 'tinysearobots/web/app'
+require 'tinyseabots/web/app'
 
-run Tinysearobots::Web::App.new()
+run Tinyseabots::Web::App.new()

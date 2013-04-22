@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
 
+gem 'bcrypt-ruby'
 gem 'haml'
 gem 'less'
 gem 'multi_json'
@@ -19,7 +20,7 @@ gem 'twitter-bootstrap', '3.0.0',
 group :development do
   gem 'factory_girl'
   gem 'rb-fsevent'
-  gem 'rerun'
+  gem 'sinatra-contrib'
   gem 'sqlite3'
 end
 

@@ -9,6 +9,12 @@ class Tinyseabots::Web::App < Sinatra::Base
   register Sinatra::AssetPack
 
   # Configuration
+  configure :development do
+    require 'sinatra/reloader'
+    register Sinatra::Reloader
+    also_reload "#{File.dirname(__FILE__)}/model/*.rb"
+  end
+
   configure do
     # config
     config = Tinyseabots::Web::Config
@@ -27,8 +33,8 @@ class Tinyseabots::Web::App < Sinatra::Base
     # flash
     use Rack::Flash, :accessorize => [:notice, :error] 
 
-    # auth
-
+    # models
+    User = Tinyseabots::Web::Model::User
   end
 
   assets do
@@ -64,9 +70,6 @@ class Tinyseabots::Web::App < Sinatra::Base
   before do
   end
 
-  # models
-  User = Tinyseabots::Web::Model::User
-
   # helpers
   helpers do
     def authorized?
@@ -85,7 +88,7 @@ class Tinyseabots::Web::App < Sinatra::Base
   # routes
   get '/' do
     if session.has_key?(:user)
-      redirect '/hacks'
+      redirect '/robots'
     else 
       @users = User.reverse_order(:id).all
       haml :'root/index'
@@ -94,9 +97,25 @@ class Tinyseabots::Web::App < Sinatra::Base
 
   get '/login' do
     redirect '/' if authorized?
+    @user = User.new
     haml :'root/login'
   end
-  
+ 
+  post '/login' do
+    @user = User.find(
+      :email => params[:user][:email]
+    )
+    
+    if !@user.nil? && @user.check_password(params[:user][:password])
+      session[:user] = @user.to_hash()
+      redirect('/') 
+    else
+      @user = User.new(params[:user])
+      @error = 'Invalid email or password'
+      haml :'root/login'
+    end 
+  end
+ 
   get '/logout' do
     session.clear
     redirect '/'
@@ -111,9 +130,17 @@ class Tinyseabots::Web::App < Sinatra::Base
   post '/signup' do
     redirect '/' if authorized?
     @user = User.new(params[:user])
-    return haml :'root/signup' unless @user.save
+    if @user.valid?
+      @user.save
+      session[:user] = @user.to_hash()
+      redirect('/') 
+    else  
+      haml :'root/signup'
+    end
+  end
 
-    session[:user] = @user
-    res.redirect('/') 
+  get '/robots' do
+    @robots = {}
+    haml :'robots/index' 
   end
 end
