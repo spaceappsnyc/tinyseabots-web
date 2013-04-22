@@ -23,6 +23,6 @@ test:
 production:
   <<: *defaults
   database:
-    url: <%= ENV['HEROKU_POSTGRESQL_REDU_URL'] %>
+    url: <%= ENV['DATABASE_URL'] %>
   redis:
     url: <%= ENV['REDISTOGO_URL'] %>
