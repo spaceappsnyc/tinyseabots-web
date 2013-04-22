@@ -1,0 +1,28 @@
+defaults: &defaults
+  email:
+    from: 'hello@tinysearobots.com'
+  sendgrid:
+    username: <%= ENV['SENDGRID_USERNAME'] %>
+    key: <%= ENV['SENDGRID_KEY'] %>
+  session:
+    secret: <%= ENV['SESSION_SECRET'] %>
+
+development:
+  <<: *defaults
+  database:
+    url: <%= ENV['DATABASE_URL'] %>
+  port: 5000
+  redis:
+    url: <%= ENV['REDIS_URL'] %>
+  url:
+    base: 'http://localhost:5000'
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+  database:
+    url: <%= ENV['HEROKU_POSTGRESQL_AQUA_URL'] %>
+  redis:
+    url: <%= ENV['REDISTOGO_URL'] %>

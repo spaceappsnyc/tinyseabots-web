@@ -1,0 +1,5 @@
+.col-span-12.notifications
+  - unless flash[:notice].nil?
+    .alert.alert-info.text-center= flash[:notice]
+  - unless flash[:error].nil?
+    .alert.alert-danger.text-center= flash[:error]

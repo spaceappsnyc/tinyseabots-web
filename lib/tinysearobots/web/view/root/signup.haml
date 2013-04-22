@@ -1,0 +1,22 @@
+.row
+  .col-span-4.col-offset-4
+    %h1.text-center Signup
+    .well
+      %form(action="/signup" method="POST")
+        .control-group
+          %label.control-label(for="user[email]") Email
+          .controls
+            %input(name="user[email]" autofocus placeholder="Email address")
+            - if @user.errors.has_key?(:email)
+              .alert.alert-error= "Email #{@user.errors[:email].first}"
+        %br
+        .control-group
+          %label.control-label(for="user[password]") Password
+          .controls
+            %input(name="user[password]" placeholder="Password")
+            - if @user.errors.has_key?(:password)
+              .alert.alert-error= "Password #{@user.errors[:password].first}"
+        .control-group
+          %label.control-label(for="submit")
+          .controls
+            %input.btn.btn-primary(type="submit" value="Signup")

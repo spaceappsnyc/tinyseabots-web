@@ -1,0 +1,18 @@
+.row
+  .col-span-4.col-offset-4
+    %h1.text-center Login
+    .well
+      %form(action="/login" method="POST")
+        .control-group
+          %label.control-label(for="user[email]") Email
+          .controls
+            %input(name="user[email]" autofocus placeholder="Email address")
+        %br
+        .control-group
+          %label.control-label(for="user[password]") Password
+          .controls
+            %input(name="user[password]" placeholder="Password")
+        .control-group
+          %label.control-label(for="submit")
+          .controls
+            %input.btn.btn-primary(type="submit" value="Signup")

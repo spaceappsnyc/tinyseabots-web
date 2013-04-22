@@ -1,0 +1,34 @@
+.navbar
+  %button.navbar-toggle(type="button" data-toggle="collapse" 
+    data-target=".nav-collapse")
+    %span.icon-bar
+    %span.icon-bar
+    %span.icon-bar
+  %a.navbar-brand(href="/") Tiny Sea Robots
+  .nav-collapse.collapse
+    .hidden-phone
+      %ul.nav.pull-right
+        %li
+          %a(href="/robots") Robots
+        %li
+          %a(href="/signup") Signup
+
+        - if current_user(:id).nil?
+          %li
+            %a(href="/login") Login
+        - else
+          %li
+            %a(href="/logout") Logout
+    .visible-phone
+      %ul.nav.text-center
+        %li
+          %a(href="/robots") Robots
+        %li
+          %a(href="/signup") Signup
+
+        - if current_user(:id).nil?
+          %li
+            %a(href="/login") Login
+        - else
+          %li
+            %a(href="/logout") Logout

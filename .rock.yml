@@ -1,1 +1,30 @@
 runtime: ruby20
+
+build: |
+  {{ parent }}
+
+run: |
+  source .env
+  export COMMAND=
+
+  if [ -z "$PORT" ]
+  then
+    export PORT=5000
+  fi
+
+  if [ -z "$RACK_ENV" ] || [ "$RACK_ENV" == 'development' ]
+  then
+    export RACK_ENV=development
+    export COMMAND=rerun 
+  fi
+
+  $COMMAND thin start -- -R config.ru -p $PORT
+
+rake: |
+  source .env
+  rake $ROCK_ARGV
+
+test: |
+  source .env
+
+  {{ parent }}
