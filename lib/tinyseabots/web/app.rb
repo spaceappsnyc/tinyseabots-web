@@ -2,8 +2,10 @@ require 'tinyseabots/web'
 
 require 'less'
 require 'rack/flash'
+require 'redis'
 require 'sinatra/base'
 require 'sinatra/assetpack'
+require 'uri'
 
 class Tinyseabots::Web::App < Sinatra::Base
   register Sinatra::AssetPack
@@ -24,6 +26,9 @@ class Tinyseabots::Web::App < Sinatra::Base
     set :views, "#{File.dirname(__FILE__)}/view"
     set :haml, :format => :html5
 
+    # redis
+    REDIS = Redis.new()
+
     # session
     use Rack::Session::Cookie, :secret => config.session.secret
 
@@ -34,6 +39,7 @@ class Tinyseabots::Web::App < Sinatra::Base
     use Rack::Flash, :accessorize => [:notice, :error] 
 
     # models
+    Robot = Tinyseabots::Web::Model::Robot
     User = Tinyseabots::Web::Model::User
   end
 
@@ -139,8 +145,44 @@ class Tinyseabots::Web::App < Sinatra::Base
     end
   end
 
+  post '/robot_auth' do
+    @robot = Robot.find(params[:robot])
+    if @robot.nil?
+      status 403
+    else
+      status 200
+    end 
+  end
+
   get '/robots' do
-    @robots = {}
-    haml :'robots/index' 
+    @active_robot_keys = REDIS.keys("robot:*:stream")
+    @active_robot_ids = @active_robot_keys.map { |key| key.split(':')[1] }
+    @robots = Robot.where(:id => @active_robot_ids).all
+
+    haml :'robot/index' 
+  end
+
+  get '/robot/:id' do
+    @robot = Robot[params[:id]]
+    if @robot
+    haml :'robot/show'
+    else
+      status 404
+    end
+  end
+
+  get '/robot/new' do
+    @robot = Robot.new()
+    haml :'robot/new'
+  end
+
+  post '/robot' do
+    @robot = Robot.new(params[:robot])
+    if @robot.valid?
+      @robot.save
+      redirect "/robot/#{@robot.id}"
+    else
+      haml :'robot/new'
+    end
   end
 end

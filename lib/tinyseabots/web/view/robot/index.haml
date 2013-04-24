@@ -1,0 +1,15 @@
+- @title = "Sea Bots"
+
+- if @robots.nil?
+  %h1.text-center
+    All sea bots are currently sleeping, come back soon! 
+- else
+  %h1.text-center
+    Meet the sea bots
+- @robots.each do |robot|
+  .text-center
+    %h2.text-center
+      %a(href="/robot/#{robot.id}")
+        = robot.name
+    %p.lead
+      = robot.location

@@ -1,0 +1,10 @@
+- @title = "Robot: #{@robot.name}"
+
+.text-center
+  %h1= @robot.name
+  %h3= @robot.location
+
+.row
+  .col-span-4
+    %img(src="http://localhost:5002/video/#{@robot.id}")
+  .col-span-8

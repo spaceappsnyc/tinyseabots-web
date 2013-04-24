@@ -9,4 +9,5 @@ module Tinyseabots
   end
 end
 
+require 'tinyseabots/web/model/robot'
 require 'tinyseabots/web/model/user'

@@ -1,0 +1,27 @@
+- @title = "Add a Sea Bot"
+
+- @title = "Signup"
+
+.row
+  .col-span-6.col-offset-3
+    %h1.text-center Add a Sea Bot
+    .well
+      %form(action="/robot" method="POST")
+        .control-group
+          %label.control-label(for="robot[name]") Name
+          .controls
+            %input(name="robot[name]" autofocus placeholder="Robot's Name"
+              value="#{@robot.name}" type="text")
+            - if @robot.errors.has_key?(:name)
+              .alert.alert-danger= "Name #{@robot.errors[:name].first}"
+        .control-group
+          %label.control-label(for="robot[location]") Location
+          .controls
+            %input(name="robot[location]" placeholder="Robot's Location"
+              type="text")
+            - if @robot.errors.has_key?(:location)
+              .alert.alert-danger= "Location #{@robot.errors[:location].first}"
+        .control-group
+          %label.control-label(for="submit")
+          .controls
+            %input.btn.btn-primary(type="submit" value="Add")

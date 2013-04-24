@@ -10,25 +10,25 @@
       %ul.nav.pull-right
         %li
           %a(href="/robots") Sea Bots
-        %li
-          %a(href="/signup") Signup
 
         - if current_user(:id).nil?
           %li
             %a(href="/login") Login
         - else
+          %li
+            %a(href="/robot/new") Add a Sea Bot
           %li
             %a(href="/logout") Logout
     .visible-phone
       %ul.nav.text-center
         %li
           %a(href="/robots") Sea Bots
-        %li
-          %a(href="/signup") Signup
 
         - if current_user(:id).nil?
           %li
             %a(href="/login") Login
         - else
+          %li
+            %a(href="/robot/new") Add a Sea Bot
           %li
             %a(href="/logout") Logout
