@@ -1,0 +1,25 @@
+- @title = "Account"
+
+.text-center
+  %h2 Robots
+  %hr
+  - if @robots.count == 0
+    %p
+      %strong You don't have any robots yet
+  - @robots.each do |robot|
+    %h3= robot.name
+    %p
+      %strong Location
+      %br
+      = robot.location
+    %p
+      %strong API
+      %br
+      Id:
+      %code 
+        = robot.id
+      %br
+      Key:
+      %span
+      %code 
+        = robot.api_key

@@ -12,15 +12,24 @@
           %a(href="/robots") Sea Bots
 
         - if current_user(:id).nil?
+
+
           %li
             %a(href="/signup") Signup
           %li
             %a(href="/login") Login
         - else
-          %li
-            %a(href="/robot/new") Add a Sea Bot
-          %li
-            %a(href="/logout") Logout
+          %li.dropdown
+            %a(data-toggle="dropdown" href="#" id="nav-user-dropdown")
+              = current_user(:email)
+              %b.caret
+            %ul.dropdown-menu 
+              %li
+                %a(href="/robot/new") Add a Sea Bot
+              %li
+                %a(href="/account") Account
+              %li
+                %a(href="/logout") Logout
     .visible-phone
       %ul.nav.text-center
         %li
@@ -32,7 +41,10 @@
           %li
             %a(href="/login") Login
         - else
-          %li
-            %a(href="/robot/new") Add a Sea Bot
-          %li
-            %a(href="/logout") Logout
+          %li.dropdown
+            %li
+              %a(href="/robot/new") Add a Sea Bot
+            %li
+              %a(href="/account") Account
+            %li
+              %a(href="/logout") Logout

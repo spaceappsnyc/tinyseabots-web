@@ -153,6 +153,12 @@ class Tinyseabots::Web::App < Sinatra::Base
     end
   end
 
+  get '/account' do
+    protected!
+    @robots = Robot.where(:user_id => session[:user][:id]).all
+    haml :'root/account'
+  end
+
   post '/robot_auth' do
     @robot = Robot.find(params[:robot])
     if @robot.nil?
@@ -171,6 +177,7 @@ class Tinyseabots::Web::App < Sinatra::Base
   end
 
   get '/robot/new' do
+    protected!
     @robot = Robot.new()
     haml :'robot/new'
   end
@@ -185,10 +192,12 @@ class Tinyseabots::Web::App < Sinatra::Base
   end
 
   post '/robot' do
+    protected!
     @robot = Robot.new(params[:robot])
+    @robot.user_id = session[:user][:id]
     if @robot.valid?
       @robot.save
-      redirect "/robot/#{@robot.id}"
+      redirect "/robots"
     else
       haml :'robot/new'
     end
