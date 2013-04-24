@@ -1,6 +1,6 @@
 require 'tinyseabots/web/model'
 
-require 'SecureRandom'
+require 'securerandom'
 
 class Tinyseabots::Web::Model::Robot < Sequel::Model(:robot)
   plugin :json_serializer 
