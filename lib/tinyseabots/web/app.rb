@@ -170,6 +170,11 @@ class Tinyseabots::Web::App < Sinatra::Base
     haml :'robot/index' 
   end
 
+  get '/robot/new' do
+    @robot = Robot.new()
+    haml :'robot/new'
+  end
+
   get '/robot/:id' do
     @robot = Robot[params[:id]]
     if @robot
@@ -177,11 +182,6 @@ class Tinyseabots::Web::App < Sinatra::Base
     else
       status 404
     end
-  end
-
-  get '/robot/new' do
-    @robot = Robot.new()
-    haml :'robot/new'
   end
 
   post '/robot' do
