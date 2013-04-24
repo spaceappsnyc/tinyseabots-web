@@ -27,7 +27,15 @@ class Tinyseabots::Web::App < Sinatra::Base
     set :haml, :format => :html5
 
     # redis
-    REDIS = Redis.new()
+    redis_params = URI(config.redis.url)
+    redis_options = {
+      :host => redis_params.host,
+      :port => redis_params.port
+    }
+    unless redis_params.password.nil?
+      redis_options[:password] = redis_params.password
+    end
+    REDIS = Redis.new(redis_options)
 
     # session
     use Rack::Session::Cookie, :secret => config.session.secret
