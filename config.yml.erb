@@ -16,6 +16,8 @@ development:
     url: <%= ENV['REDIS_URL'] %>
   streamer:
     url: 'http://localhost:5002'
+  web:
+    url: 'http://localhost:5000'
 
 test:
   <<: *defaults
@@ -28,3 +30,5 @@ production:
     url: <%= ENV['REDISTOGO_URL'] %>
   streamer:
     url: 'http://streamer.tinyseabots.com'
+  web:
+    url: 'http://www.tinyseabots.com'

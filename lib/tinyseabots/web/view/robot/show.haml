@@ -1,9 +1,21 @@
 - @title = "Robot: #{@robot.name}"
 
-.text-center
-  %h1= @robot.name
-  %h3= @robot.location
-
 .row
-  .col-span-6.col-offset-3
+  .col-span-6.col-offset-1
     %img(src="#{settings.config.streamer.url}/video/#{@robot.id}")
+    .page-header
+      %h2
+        = @robot.name
+        %small= @robot.location
+      %ul.list-inline
+        %li
+          = haml :"robot/_twitter_tweet"
+        %li
+          = haml :"robot/_facebook_like",
+            :locals => { :url => "#{settings.config.web.url}/robot/#{@robot.id}" }
+        %li
+          = haml :"robot/_google_plus"
+        %li.pull-right
+          %a.btn.btn-primary(href="#") Take a picture
+  .col-span-3.col-offset-1
+  .col-span-1
